@@ -10,7 +10,7 @@
     /// 2.4 열쇠 습득 및 열쇠 사용 구현+ 무기+ 방어구 습득 구현
     /// 2.5 새로운 방을 열엇을 때, 맵 추가하는거 구현 //클리어
     /// 3. 상태창 및 대사 출력   // 클리어
-    /// 3.1 적 조우 시 전투화면 변경
+    /// 3.1 적 조우 시 전투화면 변경 // 클리어
     /// 3.2 전투 화면 종료 후 원래 화면으로 // 클리어
     /// 3.3 체력, 장비(교체불가), 경험치,레벨,공격력,방어력 구현 // 클리어
     /// 4 마지막 보스 쓰러뜨리면 게임 끝
@@ -550,7 +550,7 @@
             Console.WriteLine($"|| 행동을 선택해주세요 !   ");
             Console.WriteLine($"|| 1. 공격한다          | 2. 방어한다");
             Console.WriteLine("******************************************************************************");
-            int choice;
+            
             if (enemy[enemyNum].hp <= 0)
             {
                 // 적이 살아있나 체크
@@ -561,6 +561,7 @@
                 playerStat.hp = 100;
                 Console.Clear();
             }
+            
             else
             {
                 // 플레이어가 살아있나 체크
@@ -570,11 +571,12 @@
                 }
                 else
                 {
-                   // 전투 구현
-                    int.TryParse(Console.ReadLine(), out choice);
+                    // 전투 구현
+                    ConsoleKey choice = Console.ReadKey(true).Key;
                     switch (choice)
                     {
-                        case 1:
+                        case ConsoleKey.D1:
+                        case ConsoleKey.NumPad1:
                             //크리티컬 만들어보기
 
                             Random rand = new Random();
@@ -609,7 +611,8 @@
 
 
                             break;
-                        case 2:
+                        case ConsoleKey.D2:
+                        case ConsoleKey.NumPad2:
                             int defenceAttack = enemy[enemyNum].attackPoint * (100 - playerStat.defence * 3) / 100;
                             playerStat.hp -= defenceAttack;
                             Thread.Sleep(300);
